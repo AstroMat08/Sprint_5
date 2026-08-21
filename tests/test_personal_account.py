@@ -1,6 +1,6 @@
 import pytest
 from selenium.webdriver.support import expected_conditions
-from locators import MainPageLocators, PersonalAccountLocators
+from ..data.locators import MainPageLocators, PersonalAccountLocators
 
 class TestPersonalAccount:
     

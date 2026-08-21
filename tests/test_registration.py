@@ -1,7 +1,7 @@
 import pytest
 from selenium.webdriver.support import expected_conditions
-from locators import MainPageLocators, LoginPageLocators, RegistrationPageLocators
-from helpers.generator import generate_email, generate_password, generate_name
+from ..data.locators import MainPageLocators, LoginPageLocators, RegistrationPageLocators
+from ..helpers.generator import generate_email, generate_password, generate_name
 
 class TestRegistration:
     
@@ -12,7 +12,7 @@ class TestRegistration:
         password = generate_password()
         name = generate_name()
         
-        driver.get("https://stellarburgers.nomoreparties.site/")
+        driver.get("https://stellarburgers.education-services.ru/")
         
         # Переход на страницу регистрации
         wait.until(expected_conditions.element_to_be_clickable(MainPageLocators.LOGIN_BUTTON)).click()
@@ -35,7 +35,7 @@ class TestRegistration:
         email = generate_email()
         name = generate_name()
         
-        driver.get("https://stellarburgers.nomoreparties.site/")
+        driver.get("https://stellarburgers.education-services.ru/")
         
         # Переход на страницу регистрации
         wait.until(expected_conditions.element_to_be_clickable(MainPageLocators.LOGIN_BUTTON)).click()

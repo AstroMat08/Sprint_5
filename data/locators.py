@@ -29,7 +29,7 @@ class LoginPageLocators:
 class RegistrationPageLocators:
     """Локаторы страницы регистрации"""
     # Поле ввода имени
-    NAME_INPUT = (By.XPATH, "//label[text()='Имя']/following-sibling::input")
+    NAME_INPUT = (By.XPATH, "//input[@name='name']")
     # Поле ввода Email
     EMAIL_INPUT = (By.XPATH, "//label[text()='Email']/following-sibling::input")
     # Поле ввода пароля
@@ -38,6 +38,8 @@ class RegistrationPageLocators:
     REGISTER_BUTTON = (By.XPATH, "//button[text()='Зарегистрироваться']")
     # Ошибка для некорректного пароля
     PASSWORD_ERROR = (By.XPATH, "//p[text()='Некорректный пароль']")
+    # Ссылка "Войти" на странице регистрации
+    LOGIN_LINK = (By.XPATH, "//button[text()='Войти']")
 
 class PersonalAccountLocators:
     """Локаторы личного кабинета"""
