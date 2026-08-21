@@ -1,15 +1,17 @@
 import pytest
 from selenium.webdriver.support import expected_conditions
 from locators import MainPageLocators, LoginPageLocators, RegistrationPageLocators
-
-TEST_EMAIL = "matvey_kozlov_53_888@yandex.ru"
-TEST_PASSWORD = "12345678"
-TEST_NAME = "Matvey"
+from helpers.generator import generate_email, generate_password, generate_name
 
 class TestRegistration:
     
     def test_successful_registration(self, driver, wait):
         """Тест успешной регистрации"""
+        # Генерируем данные для пользователя
+        email = generate_email()
+        password = generate_password()
+        name = generate_name()
+        
         driver.get("https://stellarburgers.nomoreparties.site/")
         
         # Переход на страницу регистрации
@@ -17,9 +19,9 @@ class TestRegistration:
         wait.until(expected_conditions.element_to_be_clickable(LoginPageLocators.REGISTER_LINK)).click()
         
         # Заполнение полей
-        wait.until(expected_conditions.visibility_of_element_located(RegistrationPageLocators.NAME_INPUT)).send_keys(TEST_NAME)
-        driver.find_element(*RegistrationPageLocators.EMAIL_INPUT).send_keys(TEST_EMAIL)
-        driver.find_element(*RegistrationPageLocators.PASSWORD_INPUT).send_keys(TEST_PASSWORD)
+        wait.until(expected_conditions.visibility_of_element_located(RegistrationPageLocators.NAME_INPUT)).send_keys(name)
+        driver.find_element(*RegistrationPageLocators.EMAIL_INPUT).send_keys(email)
+        driver.find_element(*RegistrationPageLocators.PASSWORD_INPUT).send_keys(password)
         
         # Клик на "Зарегистрироваться"
         driver.find_element(*RegistrationPageLocators.REGISTER_BUTTON).click()
@@ -30,15 +32,18 @@ class TestRegistration:
     
     def test_registration_invalid_password_error(self, driver, wait):
         """Тест ошибки для пароля короче 6 символов"""
+        email = generate_email()
+        name = generate_name()
+        
         driver.get("https://stellarburgers.nomoreparties.site/")
         
         # Переход на страницу регистрации
         wait.until(expected_conditions.element_to_be_clickable(MainPageLocators.LOGIN_BUTTON)).click()
         wait.until(expected_conditions.element_to_be_clickable(LoginPageLocators.REGISTER_LINK)).click()
         
-        # Заполнение полей с коротким паролем
-        wait.until(expected_conditions.visibility_of_element_located(RegistrationPageLocators.NAME_INPUT)).send_keys(TEST_NAME)
-        driver.find_element(*RegistrationPageLocators.EMAIL_INPUT).send_keys(TEST_EMAIL)
+        # Заполнение полей с коротким паролем (5 символов)
+        wait.until(expected_conditions.visibility_of_element_located(RegistrationPageLocators.NAME_INPUT)).send_keys(name)
+        driver.find_element(*RegistrationPageLocators.EMAIL_INPUT).send_keys(email)
         driver.find_element(*RegistrationPageLocators.PASSWORD_INPUT).send_keys("12345")
         
         # Клик на "Зарегистрироваться"
